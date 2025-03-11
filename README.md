@@ -1,66 +1,49 @@
-Credit Risk Prediction for Loan Approval
-Project Overview
-This project involves developing a machine learning model with 96% accuracy to assess credit risk for a Non-Banking Financial Company (NBFC). The system automates the credit scoring process by categorizing loans into four risk categories: Poor, Fair, Good, and Excellent. A real-time dashboard was also built using Streamlit for visualizing loan default probability predictions, helping significantly reduce financial risk.
+# Credit Risk Prediction for Loan Approval
 
-Key Features
-Automated Credit Scoring: Classification of loans into risk categories.
+This project develops a **machine learning model** with **96% accuracy** to assess credit risk for an NBFC. The model automates the credit scoring system, categorizing loans into **Poor, Fair, Good, and Excellent** risk levels. Additionally, a **Streamlit dashboard** enables real-time loan default probability predictions, significantly reducing financial risk.
 
-Streamlit Dashboard: Real-time predictions of loan default probability for operational ease.
+## Features Engineered
+1. **Delinquency Ratio:** Measures the percentage of delinquent months in total loan months.
+   ```python
+   df['delinquency_ratio'] = (df['delinquent_months'] * 100 / df['total_loan_months']).round(1)
+   ```
+2. **Average Days Past Due (DPD) per Delinquency:** Calculates the average delay in payments for delinquent months.
+   ```python
+   df['avg_dpd_per_delinquency'] = np.where(
+       df['delinquent_months'] != 0, (df['total_dpd'] / df['delinquent_months']).round(1), 0)
+   ```
+3. **Loan-to-Income Ratio:** Represents the loan amount relative to the borrower's income.
+   ```python
+   df['loan_to_income'] = round(df['loan_amount'] / df['income'], 2)
+   ```
 
-Custom Features for Better Predictions:
+## Technologies Used
+- **Python** (pandas, numpy, scikit-learn, pickle)
+- **Machine Learning** (Random Forest Classifier)
+- **Streamlit** (for real-time predictions)
 
-Delinquency Ratio Formula: (delinquent_months * 100) / total_loan_months
+## How to Run the Project
+1. Clone this repository:
+   ```sh
+   git clone https://github.com/Nikhilkeetha08/Credit-Risk-Prediction.git
+   ```
+2. Navigate to the project folder:
+   ```sh
+   cd Credit-Risk-Prediction
+   ```
+3. Install dependencies:
+   ```sh
+   pip install -r requirements.txt
+   ```
+4. Run the Streamlit app:
+   ```sh
+   streamlit run app.py
+   ```
 
-python
-df_train_1['delinquency_ratio'] = (df_train_1['delinquent_months'] * 100 / df_train_1['total_loan_months']).round(1)
-df_test['delinquency_ratio'] = (df_test['delinquent_months'] * 100 / df_test['total_loan_months']).round(1)
-Average Days Past Due (DPD) Per Delinquency Formula: total_dpd / delinquent_months (if delinquent_months ≠ 0, else 0)
+## Model Training & Accuracy
+The model is trained using **Random Forest Classifier**, achieving **96% accuracy** on the test set.
 
-python
-df_train_1['avg_dpd_per_delinquency'] = np.where(
-    df_train_1['delinquent_months'] != 0,
-    (df_train_1['total_dpd'] / df_train_1['delinquent_months']).round(1),
-    0
-)
+## Streamlit Dashboard
+The interactive **Streamlit** dashboard allows users to input loan details and get real-time predictions of credit risk.
 
-df_test['avg_dpd_per_delinquency'] = np.where(
-    df_test['delinquent_months'] != 0,
-    (df_test['total_dpd'] / df_test['delinquent_months']).round(1),
-    0
-)
-Loan-to-Income Ratio Formula: loan_amount / income
 
-python
-df_train_1['loan_to_income'] = round(df_train_1['loan_amount'] / df_train_1['income'], 2)
-Project Highlights
-High Accuracy: The machine learning model achieved a remarkable accuracy of 96%.
-
-New Feature Engineering: Added features such as delinquency ratio, average DPD per delinquency, and loan-to-income ratio for better credit assessment.
-
-Risk Mitigation: Provides data-driven insights for reducing financial risk for NBFCs.
-
-Dashboard
-A Streamlit-powered dashboard visualizes loan default probability predictions in real-time. It enhances operational efficiency by providing easy access to predictions and analyses.
-
-How to Use
-Clone the repository:
-
-bash
-git clone <repository-url>
-Install the required libraries:
-
-bash
-pip install -r requirements.txt
-Run the Streamlit dashboard:
-
-bash
-streamlit run app.py
-Tech Stack
-Programming Language: Python
-
-Libraries: NumPy, Pandas, Scikit-learn, Streamlit
-
-Deployment: Streamlit Dashboard
-
-Acknowledgments
-This project was developed as part of a credit risk analysis system for NBFCs, focused on providing actionable insights and improving financial decision-making processes
